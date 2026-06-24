@@ -19,6 +19,10 @@ app.use('/api/pnl',        require('./routes/pnl'));
 // Health check
 app.get('/health', (_req, res) => res.json({ ok: true, time: new Date() }));
 
-// ── Start ─────────────────────────────────────────────────────────────────────
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`ProResto API running on port ${PORT}`));
+// ── Start: locally via node, on Vercel via module.exports ─────────────────────
+if (require.main === module) {
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => console.log(`ProResto API running on port ${PORT}`));
+}
+
+module.exports = app;
